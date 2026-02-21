@@ -19,6 +19,7 @@ const orbit_range = 10
 
 @onready var hook_head = preload("res://hook_head.tscn")	
 var active_hook = null
+var max_rope_length = 350.
 var rope_length = 0.0
 var hook_joint: PinJoint2D = null
 @export var rope_line: Line2D
@@ -26,6 +27,14 @@ var hook_attached = false
 
 @export var wallcheckleft: RayCast2D
 @export var wallcheckright: RayCast2D
+@export var mantlecheckleft: RayCast2D
+@export var mantlecheckright: RayCast2D
+@export var mantletimer: Timer
+
+var mantling = false
+
+func _ready() -> void:
+	mantletimer.timeout.connect(_on_mantle_timer_timeout)
 
 func _physics_process(delta: float) -> void:
 	process_movement_input(delta)
@@ -44,20 +53,24 @@ func _physics_process(delta: float) -> void:
 	else:
 		hook_direction = (active_hook.global_position - global_position).normalized()
 		grappling_hook.look_at(active_hook.global_position)
+		# limiting rope length
+		if global_position.distance_to(active_hook.global_position) > max_rope_length:
+			active_hook.queue_free()
+			active_hook = null
 	grappling_hook.position = (hook_direction * orbit_range) + Vector2(0, 5)
 	
 	update_arm_position(arm_l, grappling_hook.global_position)
 	update_arm_position(arm_r, grappling_hook.global_position)
 	
 	if mouse_pos.x < global_position.x:
-		if not $WallCheck.is_colliding():
+		if not wallcheckleft.is_colliding():
 			$Body/UpperBody.flip_h = true
 			$Body/Cloak.flip_h = true
 		arm_l.position.x = -4.5
 		arm_r.position.x = 1.5
 		grappling_hook.scale.y = -1
 	else:
-		if not $WallCheck.is_colliding():
+		if not wallcheckright.is_colliding():
 			$Body/UpperBody.flip_h = false
 			$Body/Cloak.flip_h = false
 		arm_r.position.x = -1.5
@@ -72,26 +85,44 @@ func _physics_process(delta: float) -> void:
 			unhook()
 
 func process_movement_input(delta):
+	if mantling:
+		linear_velocity.y = -200
+		linear_velocity.x = 0
+		return
+	
 	if Input.is_action_just_pressed("jump") and hook_attached:
 		unhook()
 	elif Input.is_action_just_pressed("jump") and grounded:
 		linear_velocity.y = JUMP_FORCE
-	elif Input.is_action_just_pressed("jump") and $WallCheck.is_colliding():
-		var wall_dir = sign($WallCheck.target_position.x)
+	elif Input.is_action_just_pressed("jump") and wallcheckleft.is_colliding():
+		var wall_dir = sign(wallcheckleft.target_position.x)
 		linear_velocity.x = -wall_dir * 300
 		linear_velocity.y = -500
 		post_hook_speed = 300.
+	elif Input.is_action_just_pressed("jump") and wallcheckright.is_colliding():
+		var wall_dir = sign(wallcheckright.target_position.x)
+		linear_velocity.x = -wall_dir * 300
+		linear_velocity.y = -500
+		post_hook_speed = 300.
+		
+	if wallcheckleft.is_colliding() and not mantlecheckleft.is_colliding() and Input.is_action_pressed("left"):
+		mantling = true
+		mantletimer.start()
+		return
+	if wallcheckright.is_colliding() and not mantlecheckright.is_colliding() and Input.is_action_pressed("right"):
+		mantling = true
+		mantletimer.start()
+		return
 	
 	if Input.is_action_pressed("up"):
 		if rope_length > 30:
-			rope_length -= 100 * delta
+			rope_length = clamp(rope_length - 100 * delta, 30, max_rope_length-1)
 	if Input.is_action_pressed("down"):
-		rope_length += 100 * delta
+		if rope_length < max_rope_length:
+			rope_length = clamp(rope_length + 100 * delta, 30, max_rope_length-1)
 
-	var wallcheck_active = false
 	var move_force = Vector2.ZERO
 	if Input.is_action_pressed("left"):
-		wallcheck_active = true
 		if hook_attached:
 			move_force += LEFT_FORCE * 0.02
 		elif grounded:
@@ -99,14 +130,12 @@ func process_movement_input(delta):
 		else: # unhooked, in air
 			move_force += LEFT_FORCE * 0.3
 	if Input.is_action_pressed("right"):
-		wallcheck_active = true
 		if hook_attached:
 			move_force += RIGHT_FORCE * 0.02
 		elif grounded:
 			move_force += RIGHT_FORCE
 		else: # unhooked, in air
 			move_force += RIGHT_FORCE * 0.3
-	#$WallCheck.enabled = wallcheck_active
 	
 	apply_central_force(move_force * delta)
 	if not hook_attached:
@@ -165,7 +194,6 @@ func hook_delete():
 	hook_attached = false
 	post_hook_speed = abs(linear_velocity.x)
 	rope_line.clear_points()
-	print("ledelete number " + str(count))
 	$grappling_hook/HookHead.visible = true
 	count += 1
 
@@ -174,7 +202,10 @@ func _on_floor_collision_body_entered(body: Node2D) -> void:
 	
 func _on_floor_collision_body_exited(body: Node2D) -> void:
 	grounded = false
-	
+
+func _on_mantle_timer_timeout():
+	mantling = false
+
 func update_arm_position(arm: Sprite2D, target_pos: Vector2):
 	
 	arm.look_at(target_pos)
@@ -185,16 +216,19 @@ func update_arm_position(arm: Sprite2D, target_pos: Vector2):
 
 func update_animations():
 	if Input.is_action_pressed("right"):
-		$WallCheck.target_position.x = 20 
+		#$WallCheck.target_position.x = 20 
 		$Body/UpperBody.flip_h = true
 		$Body/Cloak.flip_h = true
 	else:
-		$WallCheck.target_position.x = -20
+		#$WallCheck.target_position.x = -20
 		$Body/UpperBody.flip_h = false
 		$Body/Cloak.flip_h = false
 
 	if not grounded:
-		if $WallCheck.is_colliding():
+		if wallcheckleft.is_colliding() and Input.is_action_pressed("left"):
+			$Body/UpperBody.play("wall_sticking")
+			$Body/Cloak.play("nothing")
+		elif wallcheckright.is_colliding() and Input.is_action_pressed("right"):
 			$Body/UpperBody.play("wall_sticking")
 			$Body/Cloak.play("nothing")
 		else:
