@@ -9,7 +9,7 @@ size = Vector2(60, 62)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kpjcp"]
 size = Vector2(56, 3)
 
-[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("floor_collision", "grappling_hook", "firing_point")]
+[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("floor_collision", "grappling_hook", "firing_point", "rope_line")]
 lock_rotation = true
 continuous_cd = 1
 linear_damp = 1.0
@@ -17,6 +17,7 @@ script = ExtResource("1_kpjcp")
 floor_collision = NodePath("floor_collision")
 grappling_hook = NodePath("grappling_hook")
 firing_point = NodePath("grappling_hook/firing_point")
+rope_line = NodePath("Line2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.453125, 0.484375)
@@ -43,6 +44,11 @@ texture = ExtResource("2_ghijl")
 
 [node name="firing_point" type="Node2D" parent="grappling_hook"]
 position = Vector2(69, 0)
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0)
+width = 5.0
+default_color = Color(0.48962224, 0.48962224, 0.48962218, 1)
 
 [connection signal="body_entered" from="floor_collision" to="." method="_on_floor_collision_body_entered"]
 [connection signal="body_exited" from="floor_collision" to="." method="_on_floor_collision_body_exited"]
