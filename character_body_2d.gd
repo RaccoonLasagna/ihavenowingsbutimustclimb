@@ -24,9 +24,15 @@ var hook_joint: PinJoint2D = null
 @export var rope_line: Line2D
 var hook_attached = false
 
+@export var wallcheckleft: RayCast2D
+@export var wallcheckright: RayCast2D
+
 func _physics_process(delta: float) -> void:
 	process_movement_input(delta)
-	process_hook_swing()
+	if active_hook == null:
+		rotation = lerp_angle(rotation, 0, 0.15)
+	else:
+		process_hook_swing()
 	draw_rope()
 	update_animations()
 
@@ -66,11 +72,26 @@ func _physics_process(delta: float) -> void:
 			unhook()
 
 func process_movement_input(delta):
-	if Input.is_action_just_pressed("jump") and grounded:
+	if Input.is_action_just_pressed("jump") and hook_attached:
+		unhook()
+	elif Input.is_action_just_pressed("jump") and grounded:
 		linear_velocity.y = JUMP_FORCE
+	elif Input.is_action_just_pressed("jump") and $WallCheck.is_colliding():
+		var wall_dir = sign($WallCheck.target_position.x)
+		linear_velocity.x = -wall_dir * 300
+		linear_velocity.y = -500
+		post_hook_speed = 300.
+	
+	if Input.is_action_pressed("up"):
+		if rope_length > 30:
+			rope_length -= 100 * delta
+	if Input.is_action_pressed("down"):
+		rope_length += 100 * delta
 
+	var wallcheck_active = false
 	var move_force = Vector2.ZERO
 	if Input.is_action_pressed("left"):
+		wallcheck_active = true
 		if hook_attached:
 			move_force += LEFT_FORCE * 0.02
 		elif grounded:
@@ -78,16 +99,17 @@ func process_movement_input(delta):
 		else: # unhooked, in air
 			move_force += LEFT_FORCE * 0.3
 	if Input.is_action_pressed("right"):
+		wallcheck_active = true
 		if hook_attached:
 			move_force += RIGHT_FORCE * 0.02
 		elif grounded:
 			move_force += RIGHT_FORCE
 		else: # unhooked, in air
 			move_force += RIGHT_FORCE * 0.3
+	#$WallCheck.enabled = wallcheck_active
 	
 	apply_central_force(move_force * delta)
 	if not hook_attached:
-		#linear_velocity.x = clamp(linear_velocity.x, -MAX_SPEED, MAX_SPEED)
 		post_hook_speed = lerp(post_hook_speed, float(MAX_SPEED), SPEED_RECOVERY * delta)
 		var effective_cap = max(post_hook_speed, MAX_SPEED)
 		linear_velocity.x = clamp(linear_velocity.x, -effective_cap, effective_cap)
@@ -146,7 +168,6 @@ func hook_delete():
 	print("ledelete number " + str(count))
 	$grappling_hook/HookHead.visible = true
 	count += 1
-	rotation = 0
 
 func _on_floor_collision_body_entered(body: Node2D) -> void:
 	grounded = true

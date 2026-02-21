@@ -237,7 +237,7 @@ height = 48.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kpjcp"]
 size = Vector2(21, 3)
 
-[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("floor_collision", "grappling_hook", "firing_point", "arm_l", "arm_r", "body", "rope_line", "wallcheckleft", "wallcheckright")]
+[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("floor_collision", "grappling_hook", "firing_point", "arm_l", "arm_r", "body", "rope_line")]
 lock_rotation = true
 continuous_cd = 1
 linear_damp = 1.0
@@ -249,8 +249,6 @@ arm_l = NodePath("Body/Arms/ArmL")
 arm_r = NodePath("Body/Arms/ArmR")
 body = NodePath("Body")
 rope_line = NodePath("Line2D")
-wallcheckleft = NodePath("WallCheckLeft")
-wallcheckright = NodePath("WallCheckRight")
 
 [node name="Body" type="Node2D" parent="."]
 scale = Vector2(2, 2)
@@ -281,12 +279,8 @@ offset = Vector2(-1.5, 0)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_5ncpa")
 
-[node name="WallCheckLeft" type="RayCast2D" parent="."]
+[node name="WallCheck" type="RayCast2D" parent="."]
 target_position = Vector2(-20, 0)
-
-[node name="WallCheckRight" type="RayCast2D" parent="."]
-rotation = -0.002933681
-target_position = Vector2(20, 0)
 
 [node name="floor_collision" type="Area2D" parent="."]
 position = Vector2(0, 33)
