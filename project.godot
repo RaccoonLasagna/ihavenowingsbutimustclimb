@@ -16,13 +16,13 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="IHAVENOWINGSBUTIMUSTCLIMB"
 run/main_scene="uid://b4wtme7uoowwe"
-config/features=PackedStringArray("4.6", "Forward Plus")
+config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
 [display]
 
 window/size/mode=2
-window/stretch/scale=2.0
+window/stretch/mode="viewport"
 
 [input]
 

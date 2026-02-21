@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://lcg5t6h4iwcq"]
+[gd_scene load_steps=8 format=3 uid="uid://lcg5t6h4iwcq"]
 
 [ext_resource type="Script" uid="uid://cpj2v7cc6jskr" path="res://character_body_2d.gd" id="1_kpjcp"]
 [ext_resource type="Texture2D" uid="uid://cp1oogvdkcrjb" path="res://Assets/Player/squirrel_holding.png" id="2_kne1u"]
@@ -7,12 +7,12 @@
 [ext_resource type="Texture2D" uid="uid://q28aflkhuce8" path="res://Assets/Player/squirrel_ArmR.png" id="4_tdg3f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_44cfe"]
-size = Vector2(40, 6)
+size = Vector2(40, 58)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kpjcp"]
 size = Vector2(56, 3)
 
-[node name="Player" type="RigidBody2D" unique_id=323431567 node_paths=PackedStringArray("floor_collision", "grappling_hook", "firing_point", "rope_line")]
+[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("floor_collision", "grappling_hook", "firing_point", "rope_line")]
 lock_rotation = true
 continuous_cd = 1
 linear_damp = 1.0
@@ -22,46 +22,46 @@ grappling_hook = NodePath("grappling_hook")
 firing_point = NodePath("grappling_hook/firing_point")
 rope_line = NodePath("Line2D")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=798716880]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(2, 2.137)
 texture = ExtResource("2_kne1u")
 
-[node name="ArmL" type="Sprite2D" parent="Sprite2D" unique_id=964117924]
+[node name="ArmL" type="Sprite2D" parent="Sprite2D"]
 position = Vector2(5, 5.147403)
 texture = ExtResource("3_cxr5p")
 centered = false
 offset = Vector2(-1, 0)
 
-[node name="ArmR" type="Sprite2D" parent="Sprite2D" unique_id=1772739824]
+[node name="ArmR" type="Sprite2D" parent="Sprite2D"]
 position = Vector2(-2, 5.147403)
 texture = ExtResource("4_tdg3f")
 centered = false
 offset = Vector2(-1, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1161159245]
-position = Vector2(-2, 28)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 2)
 shape = SubResource("RectangleShape2D_44cfe")
 
-[node name="floor_collision" type="Area2D" parent="." unique_id=1406028721]
+[node name="floor_collision" type="Area2D" parent="."]
 position = Vector2(0, 33)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="floor_collision" unique_id=1846804522]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor_collision"]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_kpjcp")
 debug_color = Color(0.63343024, 0.51174825, 0.3727853, 0.41960785)
 
-[node name="grappling_hook" type="Node2D" parent="." unique_id=846899896]
+[node name="grappling_hook" type="Node2D" parent="."]
 position = Vector2(19, 8)
 
-[node name="Sprite2D" type="Sprite2D" parent="grappling_hook" unique_id=1043191145]
+[node name="Sprite2D" type="Sprite2D" parent="grappling_hook"]
 position = Vector2(7, -2)
 scale = Vector2(2, 2)
 texture = ExtResource("3_e80uo")
 
-[node name="firing_point" type="Node2D" parent="grappling_hook" unique_id=377669518]
+[node name="firing_point" type="Node2D" parent="grappling_hook"]
 position = Vector2(19, -5)
 
-[node name="Line2D" type="Line2D" parent="." unique_id=1469387110]
+[node name="Line2D" type="Line2D" parent="."]
 points = PackedVector2Array(0, 0)
 width = 5.0
 default_color = Color(0.48962224, 0.48962224, 0.48962218, 1)
