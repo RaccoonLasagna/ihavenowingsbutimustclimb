@@ -1,5 +1,5 @@
 extends CharacterBody2D
-#njoalf
+
 const SPEED = 300.0
 const ACCELERATION = 1500.0
 const FRICTION = 2000.0
