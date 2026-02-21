@@ -1,0 +1,8 @@
+63f7b34db8d8cdea90c76aacccf841ec
+::res://::1771644920
+character_body_2d.gd::GDScript::5845931966189408805::1771644743::0::1::::<>CharacterBody2D<><>0<>0<><>::
+hook_head.gd::GDScript::8602344870635758709::1771623876::0::1::::<>Area2D<><>0<>0<><>::
+hook_head.tscn::PackedScene::2078971109332983219::1771623876::0::1::::<><><>0<>0<><>::uid://dutbml4iv8uth::::res://hook_head.gd<>uid://fk07e07isnve::::res://icon.svg
+icon.svg::CompressedTexture2D::373163316133736402::1771614766::1771614781::1::::<><><>0<>0<>54a2a352286b9a7e1a447245555a6f9c<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
+map.tscn::PackedScene::4468488772629912344::1771644743::0::1::::<><><>0<>0<><>::uid://fk07e07isnve::::res://icon.svg<>uid://lcg5t6h4iwcq::::res://Player.tscn
+Player.tscn::PackedScene::776624957489952732::1771644393::0::1::::<><><>0<>0<><>::uid://cpj2v7cc6jskr::::res://character_body_2d.gd<>uid://fk07e07isnve::::res://icon.svg

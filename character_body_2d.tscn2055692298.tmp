@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://lcg5t6h4iwcq"]
+
+[ext_resource type="Script" uid="uid://cpj2v7cc6jskr" path="res://character_body_2d.gd" id="1_ij6vw"]
+[ext_resource type="Texture2D" uid="uid://fk07e07isnve" path="res://icon.svg" id="2_ghijl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_44cfe"]
+size = Vector2(60, 62)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_ij6vw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.453125, 0.484375)
+texture = ExtResource("2_ghijl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_44cfe")
+
+[node name="grappling_hook" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="grappling_hook"]
+position = Vector2(-3.8146973e-06, -59)
+scale = Vector2(0.13281249, 0.22656249)
+texture = ExtResource("2_ghijl")
