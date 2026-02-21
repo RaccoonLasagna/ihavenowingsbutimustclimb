@@ -2,17 +2,242 @@
 
 [ext_resource type="Script" uid="uid://cpj2v7cc6jskr" path="res://character_body_2d.gd" id="1_kpjcp"]
 [ext_resource type="Texture2D" uid="uid://cp1oogvdkcrjb" path="res://Assets/Player/squirrel_holding.png" id="2_kne1u"]
+[ext_resource type="Texture2D" uid="uid://cxy4xy8iswpd7" path="res://Assets/Player/squirrel_jump.png" id="3_5ncpa"]
 [ext_resource type="Texture2D" uid="uid://b38fj2bbtcovu" path="res://Assets/Player/squirrel_ArmL.png" id="3_cxr5p"]
 [ext_resource type="Texture2D" uid="uid://ccj4m5mkwa8rp" path="res://Assets/Player/Gun.png" id="3_e80uo"]
+[ext_resource type="Texture2D" uid="uid://c32eim82bd4j1" path="res://Assets/Player/squirrel_walk.png" id="3_tdg3f"]
 [ext_resource type="Texture2D" uid="uid://q28aflkhuce8" path="res://Assets/Player/squirrel_ArmR.png" id="4_tdg3f"]
+[ext_resource type="Texture2D" uid="uid://bupa38ogv75vk" path="res://Assets/Player/squirrel_wall_sticking.png" id="5_wi0c6"]
+[ext_resource type="Texture2D" uid="uid://5t6atg5r5jvh" path="res://Assets/Player/squirrel_walk_cloak.png" id="6_dtqjt"]
+[ext_resource type="Texture2D" uid="uid://bkq6w6l2n5ye7" path="res://Assets/Player/Hookhead.png" id="10_hp6x6"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_44cfe"]
-size = Vector2(40, 6)
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxr5p"]
+atlas = ExtResource("2_kne1u")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3vjad"]
+atlas = ExtResource("3_5ncpa")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yt0h1"]
+atlas = ExtResource("3_5ncpa")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vd78s"]
+atlas = ExtResource("3_5ncpa")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ictha"]
+atlas = ExtResource("3_5ncpa")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1jgrc"]
+atlas = ExtResource("3_5ncpa")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7wy67"]
+atlas = ExtResource("3_5ncpa")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ncpa"]
+atlas = ExtResource("3_tdg3f")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wi0c6"]
+atlas = ExtResource("3_tdg3f")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hp6x6"]
+atlas = ExtResource("3_tdg3f")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3tkgg"]
+atlas = ExtResource("3_tdg3f")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l6ohk"]
+atlas = ExtResource("3_tdg3f")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oudfo"]
+atlas = ExtResource("3_tdg3f")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d6rpx"]
+atlas = ExtResource("3_tdg3f")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r3kul"]
+atlas = ExtResource("3_tdg3f")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jatw7"]
+atlas = ExtResource("3_tdg3f")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tdg3f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cxr5p")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3vjad")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yt0h1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vd78s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ictha")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1jgrc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7wy67")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ncpa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wi0c6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hp6x6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3tkgg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l6ohk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oudfo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d6rpx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r3kul")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jatw7")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_wi0c6")
+}],
+"loop": true,
+"name": &"wall_sticking",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rv870"]
+atlas = ExtResource("6_dtqjt")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_efikj"]
+atlas = ExtResource("6_dtqjt")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_itxgx"]
+atlas = ExtResource("6_dtqjt")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cgsek"]
+atlas = ExtResource("6_dtqjt")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0pi4m"]
+atlas = ExtResource("6_dtqjt")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sg6sq"]
+atlas = ExtResource("6_dtqjt")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h84ma"]
+atlas = ExtResource("6_dtqjt")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_47wu6"]
+atlas = ExtResource("6_dtqjt")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2n1s8"]
+atlas = ExtResource("6_dtqjt")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dtqjt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rv870")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_efikj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_itxgx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cgsek")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0pi4m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sg6sq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h84ma")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_47wu6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2n1s8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"nothing",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rv870"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5ncpa"]
+radius = 14.0
+height = 48.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kpjcp"]
-size = Vector2(56, 3)
+size = Vector2(21, 3)
 
-[node name="Player" type="RigidBody2D" unique_id=323431567 node_paths=PackedStringArray("floor_collision", "grappling_hook", "firing_point", "rope_line")]
+[node name="Player" type="RigidBody2D" unique_id=323431567 node_paths=PackedStringArray("floor_collision", "grappling_hook", "firing_point", "arm_l", "arm_r", "body", "rope_line")]
 lock_rotation = true
 continuous_cd = 1
 linear_damp = 1.0
@@ -20,50 +245,71 @@ script = ExtResource("1_kpjcp")
 floor_collision = NodePath("floor_collision")
 grappling_hook = NodePath("grappling_hook")
 firing_point = NodePath("grappling_hook/firing_point")
+arm_l = NodePath("Body/Arms/ArmL")
+arm_r = NodePath("Body/Arms/ArmR")
+body = NodePath("Body")
 rope_line = NodePath("Line2D")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=798716880]
-scale = Vector2(2, 2.137)
-texture = ExtResource("2_kne1u")
+[node name="Body" type="Node2D" parent="." unique_id=942070350]
+scale = Vector2(2, 2)
 
-[node name="ArmL" type="Sprite2D" parent="Sprite2D" unique_id=964117924]
-position = Vector2(5, 5.147403)
+[node name="UpperBody" type="AnimatedSprite2D" parent="Body" unique_id=280013281]
+sprite_frames = SubResource("SpriteFrames_tdg3f")
+animation = &"jump"
+
+[node name="Cloak" type="AnimatedSprite2D" parent="Body" unique_id=489625019]
+sprite_frames = SubResource("SpriteFrames_dtqjt")
+animation = &"nothing"
+
+[node name="Arms" type="AnimatedSprite2D" parent="Body" unique_id=409036550]
+sprite_frames = SubResource("SpriteFrames_rv870")
+
+[node name="ArmL" type="Sprite2D" parent="Body/Arms" unique_id=964117924]
+position = Vector2(4.5, 5)
 texture = ExtResource("3_cxr5p")
 centered = false
-offset = Vector2(-1, 0)
+offset = Vector2(-1.5, 0)
 
-[node name="ArmR" type="Sprite2D" parent="Sprite2D" unique_id=1772739824]
-position = Vector2(-2, 5.147403)
+[node name="ArmR" type="Sprite2D" parent="Body/Arms" unique_id=1772739824]
+position = Vector2(-1.5, 5)
 texture = ExtResource("4_tdg3f")
 centered = false
-offset = Vector2(-1, 0)
+offset = Vector2(-1.5, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1161159245]
-position = Vector2(-2, 28)
-shape = SubResource("RectangleShape2D_44cfe")
+visible = false
+shape = SubResource("CapsuleShape2D_5ncpa")
+
+[node name="WallCheck" type="RayCast2D" parent="." unique_id=1510697000]
+target_position = Vector2(-20, 0)
 
 [node name="floor_collision" type="Area2D" parent="." unique_id=1406028721]
 position = Vector2(0, 33)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor_collision" unique_id=1846804522]
-position = Vector2(0, 0.5)
+position = Vector2(0, -7)
 shape = SubResource("RectangleShape2D_kpjcp")
 debug_color = Color(0.63343024, 0.51174825, 0.3727853, 0.41960785)
 
 [node name="grappling_hook" type="Node2D" parent="." unique_id=846899896]
-position = Vector2(19, 8)
+position = Vector2(34, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="grappling_hook" unique_id=1043191145]
-position = Vector2(7, -2)
+[node name="Gun" type="Sprite2D" parent="grappling_hook" unique_id=1043191145]
+position = Vector2(6, -3)
 scale = Vector2(2, 2)
 texture = ExtResource("3_e80uo")
 
+[node name="HookHead" type="Sprite2D" parent="grappling_hook" unique_id=1626561845]
+position = Vector2(19, -6)
+scale = Vector2(2, 2)
+texture = ExtResource("10_hp6x6")
+
 [node name="firing_point" type="Node2D" parent="grappling_hook" unique_id=377669518]
-position = Vector2(19, -5)
+position = Vector2(14, -6)
 
 [node name="Line2D" type="Line2D" parent="." unique_id=1469387110]
 points = PackedVector2Array(0, 0)
-width = 5.0
+width = 2.0
 default_color = Color(0.48962224, 0.48962224, 0.48962218, 1)
 
 [connection signal="body_entered" from="floor_collision" to="." method="_on_floor_collision_body_entered"]

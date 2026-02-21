@@ -12,6 +12,9 @@ var grounded = false
 
 @export var grappling_hook: Node2D
 @export var firing_point: Node2D
+@export var arm_l: Node2D
+@export var arm_r: Node2D
+@export var body: Node2D
 const orbit_range = 10
 
 @onready var hook_head = preload("res://hook_head.tscn")	
@@ -25,6 +28,7 @@ func _physics_process(delta: float) -> void:
 	process_movement_input(delta)
 	process_hook_swing()
 	draw_rope()
+	update_animations()
 
 	var mouse_pos = get_global_mouse_position()	
 	var hook_direction
@@ -36,26 +40,35 @@ func _physics_process(delta: float) -> void:
 		grappling_hook.look_at(active_hook.global_position)
 	grappling_hook.position = (hook_direction * orbit_range) + Vector2(0, 5)
 	
-	update_arm_position($Sprite2D/ArmL, grappling_hook.global_position)
-	update_arm_position($Sprite2D/ArmR, grappling_hook.global_position)
+	update_arm_position(arm_l, grappling_hook.global_position)
+	update_arm_position(arm_r, grappling_hook.global_position)
 	
 	if mouse_pos.x < global_position.x:
-		$Sprite2D.scale.x = -2
+		if not $WallCheck.is_colliding():
+			$Body/UpperBody.flip_h = true
+			$Body/Cloak.flip_h = true
+		arm_l.position.x = -4.5
+		arm_r.position.x = 1.5
 		grappling_hook.scale.y = -1
 	else:
-		$Sprite2D.scale.x = 2
+		if not $WallCheck.is_colliding():
+			$Body/UpperBody.flip_h = false
+			$Body/Cloak.flip_h = false
+		arm_r.position.x = -1.5
+		arm_l.position.x = 4.5
 		grappling_hook.scale.y = 1
 
 	if Input.is_action_just_pressed("fire_hook"):
 		if active_hook == null:
 			fire_hook(-hook_direction, mouse_pos)
+			$grappling_hook/HookHead.visible = false
 		else:
 			unhook()
 
 func process_movement_input(delta):
 	if Input.is_action_just_pressed("jump") and grounded:
 		linear_velocity.y = JUMP_FORCE
-	
+
 	var move_force = Vector2.ZERO
 	if Input.is_action_pressed("left"):
 		if hook_attached:
@@ -131,6 +144,7 @@ func hook_delete():
 	post_hook_speed = abs(linear_velocity.x)
 	rope_line.clear_points()
 	print("ledelete number " + str(count))
+	$grappling_hook/HookHead.visible = true
 	count += 1
 	rotation = 0
 
@@ -141,9 +155,58 @@ func _on_floor_collision_body_exited(body: Node2D) -> void:
 	grounded = false
 	
 func update_arm_position(arm: Sprite2D, target_pos: Vector2):
-
 	
 	arm.look_at(target_pos)
-	arm.rotation += 30
+	arm.rotation_degrees -= 60
+	
 	var distance = arm.global_position.distance_to(target_pos)
 	arm.scale.y = distance / 8
+
+func update_animations():
+	if Input.is_action_pressed("right"):
+		$WallCheck.target_position.x = 20 
+		$Body/UpperBody.flip_h = true
+		$Body/Cloak.flip_h = true
+	else:
+		$WallCheck.target_position.x = -20
+		$Body/UpperBody.flip_h = false
+		$Body/Cloak.flip_h = false
+
+	if not grounded:
+		if $WallCheck.is_colliding():
+			$Body/UpperBody.play("wall_sticking")
+			$Body/Cloak.play("nothing")
+		else:
+			update_jump_animation()
+			$Body/Cloak.play("nothing")
+		return
+
+	if abs(linear_velocity.x) > 10:
+		$Body/UpperBody.play("walk")
+		$Body/Cloak.play("default")
+		
+	else:
+		$Body/UpperBody.play("idle")
+		$Body/Cloak.stop()
+		
+func update_jump_animation():
+	
+	var anim = $Body/UpperBody
+	anim.play("jump")
+	
+	anim.pause() 
+
+	if linear_velocity.y < -400:
+		anim.frame = 0
+	elif linear_velocity.y < -300:
+		anim.frame = 1
+	elif linear_velocity.y < -100:
+		anim.frame = 2
+	elif linear_velocity.y > 100:
+		anim.frame = 4
+	elif linear_velocity.y > 200:
+		anim.frame = 5
+	elif linear_velocity.y > 300:
+		anim.frame = 0
+	else:
+		anim.frame = 3

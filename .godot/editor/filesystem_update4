@@ -1,2 +1,4 @@
 res://Player.tscn
 res://character_body_2d.gd
+res://map.tscn
+res://hook_head.tscn
