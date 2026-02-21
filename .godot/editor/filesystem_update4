@@ -1,2 +1,5 @@
-res://Player.tscn
-res://character_body_2d.gd
+res://Tall paralax level/TALL_Map.tscn
+res://Title Screen/title_screen.tscn
+res://Tall paralax level/Camera_follow.gd
+res://COPY_character_body_2d.gd
+res://Tall paralax level/tint_tiles.gdshader

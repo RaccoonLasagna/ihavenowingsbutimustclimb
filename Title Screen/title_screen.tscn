@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://c3pdhyk3hr7l7"]
+
+[ext_resource type="Script" uid="uid://bb44xf5h5b81b" path="res://Title Screen/TitleScreen.gd" id="1_yipmr"]
+[ext_resource type="Texture2D" uid="uid://d2u7dty7jj0mm" path="res://Title Screen/flying s menu pixel.png" id="2_khdhd"]
+[ext_resource type="Theme" uid="uid://cpf4r2tkmf3d4" path="res://Title Screen/Title_theme.tres" id="3_ua7pt"]
+
+[node name="TitleScreen" type="Control" unique_id=243189232]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yipmr")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=592225849]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_khdhd")
+expand_mode = 1
+
+[node name="STARTButton" type="Button" parent="." unique_id=1645612922]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 243.0
+offset_right = 252.0
+offset_bottom = 296.0
+theme = ExtResource("3_ua7pt")
+text = "BEGIN JOURNEY"
+
+[node name="QUITButton" type="Button" parent="." unique_id=521730993]
+layout_mode = 0
+offset_left = 76.0
+offset_top = 294.0
+offset_right = 148.0
+offset_bottom = 332.0
+theme = ExtResource("3_ua7pt")
+text = "QUIT  "
+
+[connection signal="pressed" from="STARTButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="QUITButton" to="." method="_on_quit_button_pressed"]
