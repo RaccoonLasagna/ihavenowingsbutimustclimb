@@ -34,7 +34,17 @@ func _physics_process(delta: float) -> void:
 	else:
 		hook_direction = (active_hook.global_position - global_position).normalized()
 		grappling_hook.look_at(active_hook.global_position)
-	grappling_hook.position = hook_direction * orbit_range
+	grappling_hook.position = (hook_direction * orbit_range) + Vector2(0, 5)
+	
+	update_arm_position($Sprite2D/ArmL, grappling_hook.global_position)
+	update_arm_position($Sprite2D/ArmR, grappling_hook.global_position)
+	
+	if mouse_pos.x < global_position.x:
+		$Sprite2D.scale.x = -2
+		grappling_hook.scale.y = -1
+	else:
+		$Sprite2D.scale.x = 2
+		grappling_hook.scale.y = 1
 
 	if Input.is_action_just_pressed("fire_hook"):
 		if active_hook == null:
@@ -89,7 +99,7 @@ func draw_rope():
 	rope_line.clear_points()
 	if active_hook == null:
 		return
-	rope_line.add_point(Vector2(0, -30))
+	rope_line.add_point(to_local($grappling_hook/firing_point.global_position))
 	rope_line.add_point(to_local(active_hook.global_position))
 
 func fire_hook(direction, mouse_pos):
@@ -129,3 +139,11 @@ func _on_floor_collision_body_entered(body: Node2D) -> void:
 	
 func _on_floor_collision_body_exited(body: Node2D) -> void:
 	grounded = false
+	
+func update_arm_position(arm: Sprite2D, target_pos: Vector2):
+
+	
+	arm.look_at(target_pos)
+	arm.rotation += 30
+	var distance = arm.global_position.distance_to(target_pos)
+	arm.scale.y = distance / 8

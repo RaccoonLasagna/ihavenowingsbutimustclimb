@@ -1,10 +1,10 @@
+Sprite2D
 Line2D
 CollisionShape2D
 Area2D
 RigidBody2D
 Node2D
 Timer
-Sprite2D
 TileMapLayer
 CharacterBody2D
 AnimatedSprite2D
