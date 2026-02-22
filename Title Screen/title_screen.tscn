@@ -1,10 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://c3pdhyk3hr7l7"]
+[gd_scene format=3 uid="uid://c3pdhyk3hr7l7"]
 
 [ext_resource type="Script" uid="uid://bb44xf5h5b81b" path="res://Title Screen/TitleScreen.gd" id="1_yipmr"]
-[ext_resource type="Texture2D" uid="uid://d2u7dty7jj0mm" path="res://Title Screen/flying s menu pixel.png" id="2_khdhd"]
+[ext_resource type="Texture2D" uid="uid://cd77dd38ffw36" path="res://Title Screen/flying s menu 2.png" id="2_ua7pt"]
 [ext_resource type="Theme" uid="uid://cpf4r2tkmf3d4" path="res://Title Screen/Title_theme.tres" id="3_ua7pt"]
 
-[node name="TitleScreen" type="Control"]
+[node name="TitleScreen" type="Control" unique_id=1008388045]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,31 +13,31 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yipmr")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=633203077]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_khdhd")
+texture = ExtResource("2_ua7pt")
 expand_mode = 1
 
-[node name="STARTButton" type="Button" parent="."]
+[node name="STARTButton" type="Button" parent="." unique_id=770951528]
 layout_mode = 0
-offset_left = 75.0
-offset_top = 243.0
-offset_right = 252.0
-offset_bottom = 296.0
+offset_left = 53.0
+offset_top = 209.0
+offset_right = 230.0
+offset_bottom = 262.0
 theme = ExtResource("3_ua7pt")
 text = "BEGIN JOURNEY"
 
-[node name="QUITButton" type="Button" parent="."]
+[node name="QUITButton" type="Button" parent="." unique_id=1605436399]
 layout_mode = 0
-offset_left = 76.0
-offset_top = 294.0
-offset_right = 148.0
-offset_bottom = 332.0
+offset_left = 54.0
+offset_top = 260.0
+offset_right = 126.0
+offset_bottom = 298.0
 theme = ExtResource("3_ua7pt")
 text = "QUIT  "
 
