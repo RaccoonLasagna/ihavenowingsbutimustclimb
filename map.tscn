@@ -140,7 +140,7 @@ player = NodePath("Player")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Player" parent="." instance=ExtResource("2_wijl4")]
-position = Vector2(1639, -989)
+position = Vector2(134, -122)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 material = SubResource("ShaderMaterial_wbpbn")

@@ -1,5 +1,8 @@
 extends RigidBody2D
 
+@export var min_x = 0
+@export var max_x = 9999
+
 const ACCELERATION = 500000
 const RIGHT_FORCE = Vector2(ACCELERATION, 0)
 const LEFT_FORCE = Vector2(-ACCELERATION, 0)
@@ -38,6 +41,11 @@ func _ready() -> void:
 	mantletimer.timeout.connect(_on_mantle_timer_timeout)
 
 func _physics_process(delta: float) -> void:
+	if global_position.x < min_x:
+		global_position.x = min_x
+	if global_position.x > max_x:
+		global_position.x = max_x
+	
 	process_movement_input(delta)
 	if active_hook == null:
 		rotation = lerp_angle(rotation, 0, 0.15)
