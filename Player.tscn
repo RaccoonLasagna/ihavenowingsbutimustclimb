@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://lcg5t6h4iwcq"]
+[gd_scene load_steps=42 format=3 uid="uid://lcg5t6h4iwcq"]
 
 [ext_resource type="Script" uid="uid://cpj2v7cc6jskr" path="res://character_body_2d.gd" id="1_kpjcp"]
 [ext_resource type="Texture2D" uid="uid://cp1oogvdkcrjb" path="res://Assets/Player/squirrel_holding.png" id="2_kne1u"]
@@ -234,10 +234,14 @@ animations = [{
 radius = 14.0
 height = 48.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hp6x6"]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kpjcp"]
 size = Vector2(21, 3)
 
-[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("floor_collision", "grappling_hook", "firing_point", "arm_l", "arm_r", "body", "rope_line", "wallcheckleft", "wallcheckright", "mantlecheckleft", "mantlecheckright", "mantletimer")]
+[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("floor_collision", "grappling_hook", "firing_point", "arm_l", "arm_r", "body", "rope_line", "clippingcheck", "wallcheckleft", "wallcheckright", "mantlecheckleft", "mantlecheckright", "mantletimer")]
+collision_layer = 5
+collision_mask = 5
 lock_rotation = true
 continuous_cd = 1
 linear_damp = 1.0
@@ -249,6 +253,7 @@ arm_l = NodePath("Body/Arms/ArmL")
 arm_r = NodePath("Body/Arms/ArmR")
 body = NodePath("Body")
 rope_line = NodePath("Line2D")
+clippingcheck = NodePath("ClippingCheck")
 wallcheckleft = NodePath("WallCheckLeft")
 wallcheckright = NodePath("WallCheckRight")
 mantlecheckleft = NodePath("MantleCheckLeft")
@@ -284,6 +289,10 @@ offset = Vector2(-1.5, 0)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_5ncpa")
 
+[node name="ClippingCheck" type="ShapeCast2D" parent="."]
+shape = SubResource("CapsuleShape2D_hp6x6")
+target_position = Vector2(0, 0)
+
 [node name="WallCheckLeft" type="RayCast2D" parent="."]
 position = Vector2(0, 20)
 target_position = Vector2(-20, 0)
@@ -308,6 +317,8 @@ one_shot = true
 
 [node name="floor_collision" type="Area2D" parent="."]
 position = Vector2(0, 33)
+collision_layer = 5
+collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor_collision"]
 position = Vector2(0, -7)

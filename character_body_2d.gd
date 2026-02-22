@@ -24,6 +24,7 @@ var rope_length = 0.0
 var hook_joint: PinJoint2D = null
 @export var rope_line: Line2D
 var hook_attached = false
+@export var clippingcheck: ShapeCast2D
 
 @export var wallcheckleft: RayCast2D
 @export var wallcheckright: RayCast2D
@@ -113,8 +114,8 @@ func process_movement_input(delta):
 		mantling = true
 		mantletimer.start()
 		return
-	
-	if Input.is_action_pressed("up"):
+
+	if Input.is_action_pressed("up") and !clippingcheck.is_colliding():
 		if rope_length > 30:
 			rope_length = clamp(rope_length - 100 * delta, 30, max_rope_length-1)
 	if Input.is_action_pressed("down"):
