@@ -29,8 +29,9 @@ var hook_joint: PinJoint2D = null
 var hook_attached = false
 @export var clippingcheck: ShapeCast2D
 
-@export var wallcheckleft: RayCast2D
-@export var wallcheckright: RayCast2D
+@export var wallcheckleft: ShapeCast2D
+@export var wallcheckright: ShapeCast2D
+@export var walljumpcheck: ShapeCast2D
 @export var mantlecheckleft: RayCast2D
 @export var mantlecheckright: RayCast2D
 @export var mantletimer: Timer
@@ -40,11 +41,13 @@ var hook_attached = false
 @export var walksfx: AudioStreamPlayer
 
 var mantling = false
+var mantle_dir = 0
 
 func _ready() -> void:
 	mantletimer.timeout.connect(_on_mantle_timer_timeout)
 
 func _physics_process(delta: float) -> void:
+	print(grounded)
 	if global_position.x < min_x:
 		global_position.x = min_x
 	if global_position.x > max_x:
@@ -52,7 +55,7 @@ func _physics_process(delta: float) -> void:
 	
 	process_movement_input(delta)
 	if active_hook == null:
-		rotation = lerp_angle(rotation, 0, 0.15)
+		$Body.rotation = lerp_angle($Body.rotation, 0, 0.15)
 	else:
 		process_hook_swing()
 	draw_rope()
@@ -100,7 +103,7 @@ func _physics_process(delta: float) -> void:
 func process_movement_input(delta):
 	if mantling:
 		linear_velocity.y = -200
-		linear_velocity.x = 0
+		linear_velocity.x = mantle_dir * 80
 		return
 	
 	if Input.is_action_just_pressed("jump") and hook_attached:
@@ -108,26 +111,30 @@ func process_movement_input(delta):
 	elif Input.is_action_just_pressed("jump") and grounded:
 		linear_velocity.y = JUMP_FORCE
 		jumpsfx.play()
-	elif Input.is_action_just_pressed("jump") and wallcheckleft.is_colliding():
+	# wall jump from left wall
+	elif Input.is_action_just_pressed("jump") and wallcheckleft.is_colliding() and walljumpcheck.is_colliding():
 		var wall_dir = sign(wallcheckleft.target_position.x)
 		linear_velocity.x = -wall_dir * 300
 		linear_velocity.y = -500
 		post_hook_speed = 300.
 		jumpsfx.play()
-	elif Input.is_action_just_pressed("jump") and wallcheckright.is_colliding():
+	# wall jump from left wall
+	elif Input.is_action_just_pressed("jump") and wallcheckright.is_colliding() and walljumpcheck.is_colliding():
 		var wall_dir = sign(wallcheckright.target_position.x)
 		linear_velocity.x = -wall_dir * 300
 		linear_velocity.y = -500
 		post_hook_speed = 300.
 		jumpsfx.play()
 		
-	if wallcheckleft.is_colliding() and not mantlecheckleft.is_colliding() and Input.is_action_pressed("left"):
+	if wallcheckleft.is_colliding() and not mantlecheckleft.is_colliding() and walljumpcheck.is_colliding() and Input.is_action_pressed("left"):
 		mantling = true
+		mantle_dir = -1
 		mantletimer.start()
 		return
-	if wallcheckright.is_colliding() and not mantlecheckright.is_colliding() and Input.is_action_pressed("right"):
+	if wallcheckright.is_colliding() and not mantlecheckright.is_colliding() and walljumpcheck.is_colliding() and Input.is_action_pressed("right"):
 		mantling = true
 		mantletimer.start()
+		mantle_dir = 1
 		return
 
 	if Input.is_action_pressed("up") and !clippingcheck.is_colliding():
@@ -146,16 +153,19 @@ func process_movement_input(delta):
 			if !walksfx.playing:
 				walksfx.play()
 		else: # unhooked, in air
-			move_force += LEFT_FORCE * 0.3
+			if walljumpcheck.is_colliding() == wallcheckleft.is_colliding():
+				move_force += LEFT_FORCE * 0.3
 	if Input.is_action_pressed("right"):
 		if hook_attached:
 			move_force += RIGHT_FORCE * 0.02
 		elif grounded:
 			move_force += RIGHT_FORCE
 			if !walksfx.playing:
-				walksfx.play()
+				if wallcheckright.is_colliding():
+					walksfx.play()
 		else: # unhooked, in air
-			move_force += RIGHT_FORCE * 0.3
+			if walljumpcheck.is_colliding() == wallcheckright.is_colliding():
+				move_force += RIGHT_FORCE * 0.3
 	
 	apply_central_force(move_force * delta)
 	if not hook_attached:
@@ -177,7 +187,7 @@ func process_hook_swing():
 		
 	var to_player = global_position - active_hook.global_position
 	var target_angle = to_player.angle() - PI / 2
-	rotation = lerp_angle(rotation, target_angle, 0.15)
+	$Body.rotation = lerp_angle($Body.rotation, target_angle, 0.15)
 
 func draw_rope():
 	rope_line.clear_points()
@@ -237,19 +247,19 @@ func update_arm_position(arm: Sprite2D, target_pos: Vector2):
 
 func update_animations():
 	if Input.is_action_pressed("right"):
-		#$WallCheck.target_position.x = 20 
-		$Body/UpperBody.flip_h = true
-		$Body/Cloak.flip_h = true
+		if walljumpcheck.is_colliding():
+			$Body/UpperBody.flip_h = true
+			$Body/Cloak.flip_h = true
 	else:
-		#$WallCheck.target_position.x = -20
-		$Body/UpperBody.flip_h = false
-		$Body/Cloak.flip_h = false
+		if walljumpcheck.is_colliding():
+			$Body/UpperBody.flip_h = false
+			$Body/Cloak.flip_h = false
 
 	if not grounded:
-		if wallcheckleft.is_colliding() and Input.is_action_pressed("left"):
+		if wallcheckleft.is_colliding() and walljumpcheck.is_colliding() and Input.is_action_pressed("left"):
 			$Body/UpperBody.play("wall_sticking")
 			$Body/Cloak.play("nothing")
-		elif wallcheckright.is_colliding() and Input.is_action_pressed("right"):
+		elif wallcheckright.is_colliding() and walljumpcheck.is_colliding() and Input.is_action_pressed("right"):
 			$Body/UpperBody.play("wall_sticking")
 			$Body/Cloak.play("nothing")
 		else:

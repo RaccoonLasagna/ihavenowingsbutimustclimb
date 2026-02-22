@@ -321,8 +321,8 @@ shape = SubResource("RectangleShape2D_oudfo")
 target_position = Vector2(10, 0)
 
 [node name="WallJumpCheck" type="ShapeCast2D" parent="."]
-position = Vector2(0, 30)
-scale = Vector2(2, 1)
+position = Vector2(0, 37)
+scale = Vector2(1.5, 1)
 shape = SubResource("RectangleShape2D_oudfo")
 target_position = Vector2(0, 0)
 
