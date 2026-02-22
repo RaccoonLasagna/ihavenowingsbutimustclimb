@@ -3,3 +3,4 @@ res://Parallax and color/tint_tiles.gdshader
 res://map.gd
 res://map-tutorial.tscn
 res://Title Screen/TitleScreen.gd
+res://character_body_2d.gd
