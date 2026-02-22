@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://4vcl6djg26mh"]
+[gd_scene load_steps=4 format=3 uid="uid://4vcl6djg26mh"]
 
 [ext_resource type="Script" uid="uid://dutbml4iv8uth" path="res://hook_head.gd" id="1_m6oms"]
 [ext_resource type="Texture2D" uid="uid://bkq6w6l2n5ye7" path="res://Assets/Player/Hookhead.png" id="2_hfjrw"]
@@ -6,20 +6,20 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m6oms"]
 size = Vector2(10, 10)
 
-[node name="hook_head" type="Area2D" unique_id=1846363436 node_paths=PackedStringArray("timer")]
+[node name="hook_head" type="Area2D" node_paths=PackedStringArray("timer")]
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_m6oms")
 timer = NodePath("Timer")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1453851093]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(2, 2)
 texture = ExtResource("2_hfjrw")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1008016541]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_m6oms")
 
-[node name="Timer" type="Timer" parent="." unique_id=1212105646]
+[node name="Timer" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
 
