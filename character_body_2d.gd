@@ -35,6 +35,10 @@ var hook_attached = false
 @export var mantlecheckright: RayCast2D
 @export var mantletimer: Timer
 
+@export var hooksfx: AudioStreamPlayer
+@export var jumpsfx: AudioStreamPlayer
+@export var walksfx: AudioStreamPlayer
+
 var mantling = false
 
 func _ready() -> void:
@@ -103,16 +107,19 @@ func process_movement_input(delta):
 		unhook()
 	elif Input.is_action_just_pressed("jump") and grounded:
 		linear_velocity.y = JUMP_FORCE
+		jumpsfx.play()
 	elif Input.is_action_just_pressed("jump") and wallcheckleft.is_colliding():
 		var wall_dir = sign(wallcheckleft.target_position.x)
 		linear_velocity.x = -wall_dir * 300
 		linear_velocity.y = -500
 		post_hook_speed = 300.
+		jumpsfx.play()
 	elif Input.is_action_just_pressed("jump") and wallcheckright.is_colliding():
 		var wall_dir = sign(wallcheckright.target_position.x)
 		linear_velocity.x = -wall_dir * 300
 		linear_velocity.y = -500
 		post_hook_speed = 300.
+		jumpsfx.play()
 		
 	if wallcheckleft.is_colliding() and not mantlecheckleft.is_colliding() and Input.is_action_pressed("left"):
 		mantling = true
@@ -136,6 +143,8 @@ func process_movement_input(delta):
 			move_force += LEFT_FORCE * 0.02
 		elif grounded:
 			move_force += LEFT_FORCE
+			if !walksfx.playing:
+				walksfx.play()
 		else: # unhooked, in air
 			move_force += LEFT_FORCE * 0.3
 	if Input.is_action_pressed("right"):
@@ -143,6 +152,8 @@ func process_movement_input(delta):
 			move_force += RIGHT_FORCE * 0.02
 		elif grounded:
 			move_force += RIGHT_FORCE
+			if !walksfx.playing:
+				walksfx.play()
 		else: # unhooked, in air
 			move_force += RIGHT_FORCE * 0.3
 	
@@ -176,6 +187,7 @@ func draw_rope():
 	rope_line.add_point(to_local(active_hook.global_position))
 
 func fire_hook(direction, mouse_pos):
+	hooksfx.play()
 	var hook = hook_head.instantiate()
 	active_hook = hook
 	hook.global_position = firing_point.global_position

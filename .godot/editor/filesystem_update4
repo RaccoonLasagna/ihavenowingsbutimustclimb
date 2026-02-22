@@ -1,6 +1,6 @@
-res://map.tscn
-res://Parallax and color/tint_tiles.gdshader
-res://character_body_2d.gd
-res://hook_head.tscn
-res://map_stage1.tscn
+res://Title Screen/title_screen.tscn
 res://Title Screen/TitleScreen.gd
+res://Player.tscn
+res://character_body_2d.gd
+res://map.tscn
+res://hook_head.tscn
