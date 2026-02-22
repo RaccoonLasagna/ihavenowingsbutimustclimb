@@ -1,2 +1,2 @@
-res://Title Screen/title_screen.tscn
-res://Title Screen/TitleScreen.gd
+res://map.tscn
+res://Parallax and color/tint_tiles.gdshader
