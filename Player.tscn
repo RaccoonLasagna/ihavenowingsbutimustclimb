@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://lcg5t6h4iwcq"]
+[gd_scene format=3 uid="uid://lcg5t6h4iwcq"]
 
 [ext_resource type="Script" uid="uid://cpj2v7cc6jskr" path="res://character_body_2d.gd" id="1_kpjcp"]
 [ext_resource type="Texture2D" uid="uid://cp1oogvdkcrjb" path="res://Assets/Player/squirrel_holding.png" id="2_kne1u"]
@@ -239,7 +239,7 @@ height = 48.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kpjcp"]
 size = Vector2(21, 3)
 
-[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("floor_collision", "grappling_hook", "firing_point", "arm_l", "arm_r", "body", "rope_line", "clippingcheck", "wallcheckleft", "wallcheckright", "mantlecheckleft", "mantlecheckright", "mantletimer")]
+[node name="Player" type="RigidBody2D" unique_id=1808431699 node_paths=PackedStringArray("floor_collision", "grappling_hook", "firing_point", "arm_l", "arm_r", "body", "rope_line", "clippingcheck", "wallcheckleft", "wallcheckright", "mantlecheckleft", "mantlecheckright", "mantletimer")]
 collision_layer = 5
 collision_mask = 5
 lock_rotation = true
@@ -261,88 +261,88 @@ mantlecheckleft = NodePath("MantleCheckLeft")
 mantlecheckright = NodePath("MantleCheckRight")
 mantletimer = NodePath("MantleTimer")
 
-[node name="Body" type="Node2D" parent="."]
+[node name="Body" type="Node2D" parent="." unique_id=2071786686]
 scale = Vector2(2, 2)
 
-[node name="UpperBody" type="AnimatedSprite2D" parent="Body"]
+[node name="UpperBody" type="AnimatedSprite2D" parent="Body" unique_id=1915374081]
 sprite_frames = SubResource("SpriteFrames_tdg3f")
 animation = &"jump"
 
-[node name="Cloak" type="AnimatedSprite2D" parent="Body"]
+[node name="Cloak" type="AnimatedSprite2D" parent="Body" unique_id=1102693847]
 sprite_frames = SubResource("SpriteFrames_dtqjt")
 animation = &"nothing"
 
-[node name="Arms" type="AnimatedSprite2D" parent="Body"]
+[node name="Arms" type="AnimatedSprite2D" parent="Body" unique_id=1522748963]
 sprite_frames = SubResource("SpriteFrames_rv870")
 
-[node name="ArmL" type="Sprite2D" parent="Body/Arms"]
+[node name="ArmL" type="Sprite2D" parent="Body/Arms" unique_id=1990320949]
 position = Vector2(4.5, 5)
 texture = ExtResource("3_cxr5p")
 centered = false
 offset = Vector2(-1.5, 0)
 
-[node name="ArmR" type="Sprite2D" parent="Body/Arms"]
+[node name="ArmR" type="Sprite2D" parent="Body/Arms" unique_id=1355406744]
 position = Vector2(-1.5, 5)
 texture = ExtResource("4_tdg3f")
 centered = false
 offset = Vector2(-1.5, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=468673123]
 shape = SubResource("CapsuleShape2D_5ncpa")
 
-[node name="ClippingCheck" type="ShapeCast2D" parent="."]
+[node name="ClippingCheck" type="ShapeCast2D" parent="." unique_id=835892684]
 shape = SubResource("CapsuleShape2D_hp6x6")
 target_position = Vector2(0, 0)
 
-[node name="WallCheckLeft" type="RayCast2D" parent="."]
+[node name="WallCheckLeft" type="RayCast2D" parent="." unique_id=1579224463]
 position = Vector2(0, 20)
 target_position = Vector2(-20, 0)
 
-[node name="WallCheckRight" type="RayCast2D" parent="."]
+[node name="WallCheckRight" type="RayCast2D" parent="." unique_id=1416794405]
 position = Vector2(0, 20)
 rotation = -0.002933681
 target_position = Vector2(20, 0)
 
-[node name="MantleCheckLeft" type="RayCast2D" parent="."]
+[node name="MantleCheckLeft" type="RayCast2D" parent="." unique_id=2092355806]
 position = Vector2(0, -15)
 target_position = Vector2(-20, 0)
 
-[node name="MantleCheckRight" type="RayCast2D" parent="."]
+[node name="MantleCheckRight" type="RayCast2D" parent="." unique_id=124972893]
 position = Vector2(0, -15)
 rotation = -0.005867362
 target_position = Vector2(20, 0)
 
-[node name="MantleTimer" type="Timer" parent="."]
+[node name="MantleTimer" type="Timer" parent="." unique_id=1244505545]
 wait_time = 0.05
 one_shot = true
 
-[node name="floor_collision" type="Area2D" parent="."]
+[node name="floor_collision" type="Area2D" parent="." unique_id=1919619588]
 position = Vector2(0, 33)
 collision_layer = 5
 collision_mask = 5
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="floor_collision"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor_collision" unique_id=773809734]
 position = Vector2(0, -7)
 shape = SubResource("RectangleShape2D_kpjcp")
 debug_color = Color(0.63343024, 0.51174825, 0.3727853, 0.41960785)
 
-[node name="grappling_hook" type="Node2D" parent="."]
+[node name="grappling_hook" type="Node2D" parent="." unique_id=1738481326]
 position = Vector2(34, 0)
 
-[node name="Gun" type="Sprite2D" parent="grappling_hook"]
+[node name="Gun" type="Sprite2D" parent="grappling_hook" unique_id=1202075849]
 position = Vector2(6, -3)
 scale = Vector2(2, 2)
 texture = ExtResource("3_e80uo")
 
-[node name="HookHead" type="Sprite2D" parent="grappling_hook"]
+[node name="HookHead" type="Sprite2D" parent="grappling_hook" unique_id=1609040281]
 position = Vector2(19, -6)
 scale = Vector2(2, 2)
 texture = ExtResource("10_hp6x6")
 
-[node name="firing_point" type="Node2D" parent="grappling_hook"]
+[node name="firing_point" type="Node2D" parent="grappling_hook" unique_id=1306205434]
 position = Vector2(14, -6)
 
-[node name="Line2D" type="Line2D" parent="."]
+[node name="Line2D" type="Line2D" parent="." unique_id=2029349931]
 points = PackedVector2Array(0, 0)
 width = 2.0
 default_color = Color(0.48962224, 0.48962224, 0.48962218, 1)

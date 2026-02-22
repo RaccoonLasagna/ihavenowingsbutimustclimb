@@ -4,3 +4,4 @@ res://character_body_2d.gd
 res://hook_head.tscn
 res://map_stage1.tscn
 res://Title Screen/TitleScreen.gd
+res://Player.tscn
