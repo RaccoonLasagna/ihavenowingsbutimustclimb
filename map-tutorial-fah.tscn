@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=4 uid="uid://b70gce7jfm5fg"]
+[gd_scene format=4 uid="uid://b70gce7jfm5fg"]
 
 [ext_resource type="Script" uid="uid://fse14ahe3q5s" path="res://map.gd" id="1_8spm8"]
 [ext_resource type="Texture2D" uid="uid://dygi78byp1m2o" path="res://Parallax and color/parallax background/background sky 3.png" id="2_o07me"]

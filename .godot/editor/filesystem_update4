@@ -1,11 +1,6 @@
-res://map.tscn
-res://map_fah.tscn
-res://Title Screen/title_screen.tscn
-res://Title Screen/TitleScreen.gd
-res://Player.tscn
-res://character_body_2d.gd
 res://map_stage1.tscn
-res://map.gd
 res://Parallax and color/tint_tiles.gdshader
+res://map.gd
 res://map-tutorial.tscn
-res://map-tutorial-fah.tscn
+res://Title Screen/TitleScreen.gd
+res://character_body_2d.gd
