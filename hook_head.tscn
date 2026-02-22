@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bkq6w6l2n5ye7" path="res://Assets/Player/Hookhead.png" id="2_hfjrw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m6oms"]
-size = Vector2(10, 10)
+size = Vector2(35, 14)
 
 [node name="hook_head" type="Area2D" node_paths=PackedStringArray("timer")]
 collision_layer = 2
@@ -17,6 +17,7 @@ scale = Vector2(2, 2)
 texture = ExtResource("2_hfjrw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(10.5, 0)
 shape = SubResource("RectangleShape2D_m6oms")
 
 [node name="Timer" type="Timer" parent="."]

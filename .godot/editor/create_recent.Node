@@ -1,3 +1,5 @@
+AudioStreamPlayer      - Matches the "sound" keyword.
+Node
 ShapeCast2D
 Timer
 RayCast2D

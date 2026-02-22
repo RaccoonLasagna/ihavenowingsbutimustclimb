@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://lcg5t6h4iwcq"]
+[gd_scene load_steps=46 format=3 uid="uid://lcg5t6h4iwcq"]
 
 [ext_resource type="Script" uid="uid://cpj2v7cc6jskr" path="res://character_body_2d.gd" id="1_kpjcp"]
 [ext_resource type="Texture2D" uid="uid://cp1oogvdkcrjb" path="res://Assets/Player/squirrel_holding.png" id="2_kne1u"]
@@ -10,6 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://bupa38ogv75vk" path="res://Assets/Player/squirrel_wall_sticking.png" id="5_wi0c6"]
 [ext_resource type="Texture2D" uid="uid://5t6atg5r5jvh" path="res://Assets/Player/squirrel_walk_cloak.png" id="6_dtqjt"]
 [ext_resource type="Texture2D" uid="uid://bkq6w6l2n5ye7" path="res://Assets/Player/Hookhead.png" id="10_hp6x6"]
+[ext_resource type="AudioStream" uid="uid://dmige54l86lry" path="res://Assets/Player/sfx/grapplinghook.mp3" id="11_3tkgg"]
+[ext_resource type="AudioStream" uid="uid://b2d1otb5e41vj" path="res://Assets/Player/sfx/jump.mp3" id="12_l6ohk"]
+[ext_resource type="AudioStream" uid="uid://4x7ho6fw3gcw" path="res://Assets/Player/sfx/walking.mp3" id="13_oudfo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cxr5p"]
 atlas = ExtResource("2_kne1u")
@@ -239,7 +242,12 @@ height = 48.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kpjcp"]
 size = Vector2(21, 3)
 
-[node name="Player" type="RigidBody2D" unique_id=1808431699 node_paths=PackedStringArray("floor_collision", "grappling_hook", "firing_point", "arm_l", "arm_r", "body", "rope_line", "clippingcheck", "wallcheckleft", "wallcheckright", "mantlecheckleft", "mantlecheckright", "mantletimer")]
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_oudfo"]
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("13_oudfo")
+
+[node name="Player" type="RigidBody2D" node_paths=PackedStringArray("floor_collision", "grappling_hook", "firing_point", "arm_l", "arm_r", "body", "rope_line", "clippingcheck", "wallcheckleft", "wallcheckright", "mantlecheckleft", "mantlecheckright", "mantletimer", "hooksfx", "jumpsfx", "walksfx")]
 collision_layer = 5
 collision_mask = 5
 lock_rotation = true
@@ -260,6 +268,9 @@ wallcheckright = NodePath("WallCheckRight")
 mantlecheckleft = NodePath("MantleCheckLeft")
 mantlecheckright = NodePath("MantleCheckRight")
 mantletimer = NodePath("MantleTimer")
+hooksfx = NodePath("sfx/hook")
+jumpsfx = NodePath("sfx/jump")
+walksfx = NodePath("sfx/walk")
 
 [node name="Body" type="Node2D" parent="." unique_id=2071786686]
 scale = Vector2(2, 2)
@@ -346,6 +357,17 @@ position = Vector2(14, -6)
 points = PackedVector2Array(0, 0)
 width = 2.0
 default_color = Color(0.48962224, 0.48962224, 0.48962218, 1)
+
+[node name="sfx" type="Node" parent="."]
+
+[node name="hook" type="AudioStreamPlayer" parent="sfx"]
+stream = ExtResource("11_3tkgg")
+
+[node name="jump" type="AudioStreamPlayer" parent="sfx"]
+stream = ExtResource("12_l6ohk")
+
+[node name="walk" type="AudioStreamPlayer" parent="sfx"]
+stream = SubResource("AudioStreamRandomizer_oudfo")
 
 [connection signal="body_entered" from="floor_collision" to="." method="_on_floor_collision_body_entered"]
 [connection signal="body_exited" from="floor_collision" to="." method="_on_floor_collision_body_exited"]
