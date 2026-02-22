@@ -1,2 +1,5 @@
 res://map_stage1.tscn
 res://Parallax and color/tint_tiles.gdshader
+res://map.gd
+res://map-tutorial.tscn
+res://Title Screen/TitleScreen.gd
