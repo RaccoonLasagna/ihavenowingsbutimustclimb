@@ -4,7 +4,7 @@ uniform float min_y = 0.0;       // bottom of level
 uniform float max_y = -4000.0;   // top of level
 
 // Aggressive overlay colour so you can SEE it
-uniform vec4 overlay_color : source_color = vec4(0.5, 0.3, 1.0, 1.0);
+uniform vec4 overlay_color : source_color = vec4(1, 1, 1.0, 1.0);
 
 // How strong the overlay is at the bottom
 uniform float max_opacity = 0.9;

@@ -146,7 +146,7 @@ func process_movement_input(delta):
 			if !walksfx.playing:
 				walksfx.play()
 		else: # unhooked, in air
-			move_force += LEFT_FORCE * 0.1
+			move_force += LEFT_FORCE * 0.3
 	if Input.is_action_pressed("right"):
 		if hook_attached:
 			move_force += RIGHT_FORCE * 0.02
@@ -155,7 +155,7 @@ func process_movement_input(delta):
 			if !walksfx.playing:
 				walksfx.play()
 		else: # unhooked, in air
-			move_force += RIGHT_FORCE * 0.1
+			move_force += RIGHT_FORCE * 0.3
 	
 	apply_central_force(move_force * delta)
 	if not hook_attached:
