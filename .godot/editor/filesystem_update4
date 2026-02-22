@@ -1,6 +1,11 @@
-res://map_stage1.tscn
-res://Parallax and color/tint_tiles.gdshader
 res://map.gd
 res://map-tutorial.tscn
+res://Assets/BIRD/BirdCutsceneTrigger.gd
+res://Title Screen/title_screen.tscn
 res://Title Screen/TitleScreen.gd
 res://character_body_2d.gd
+res://hook_head.tscn
+res://Parallax and color/tint_tiles.gdshader
+res://map-end.tscn
+res://Assets/BIRD/endcutscenetrigger.gd
+res://Player.tscn

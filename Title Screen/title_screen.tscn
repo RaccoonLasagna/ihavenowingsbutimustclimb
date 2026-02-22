@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bb44xf5h5b81b" path="res://Title Screen/TitleScreen.gd" id="1_yipmr"]
 [ext_resource type="Texture2D" uid="uid://cd77dd38ffw36" path="res://Title Screen/flying s menu 2.png" id="2_ua7pt"]
 [ext_resource type="Theme" uid="uid://cpf4r2tkmf3d4" path="res://Title Screen/Title_theme.tres" id="3_ua7pt"]
+[ext_resource type="AudioStream" uid="uid://7n2i8ila66e4" path="res://kiwititlescreen.mp3" id="4_dx336"]
 
 [node name="TitleScreen" type="Control" unique_id=1008388045]
 layout_mode = 3
@@ -40,6 +41,10 @@ offset_right = 126.0
 offset_bottom = 298.0
 theme = ExtResource("3_ua7pt")
 text = "QUIT  "
+
+[node name="Kiwititlescreen" type="AudioStreamPlayer" parent="." unique_id=424125966]
+stream = ExtResource("4_dx336")
+autoplay = true
 
 [connection signal="pressed" from="STARTButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="QUITButton" to="." method="_on_quit_button_pressed"]
